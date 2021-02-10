@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+
+
+{% load cart %}
+{% load custom_filter %}
+
+<style>
+    .newmain:hover
+    {
+        background-color: rgb(241, 82, 82);
+        color: black;
+    }
+    
+    .jio1
+    {
+        background-color: thistle;
+    }
+
+    .card
+    {
+        border: 1px solid tomato;
+    }
+    
+
+    .card img
+    {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+    .btnjio
+    {
+        width: 50%;
+    }
+
+    @media screen and (max-width: 480px) {
+
+        .call1{
+            display: none;
+        }
+      
+    }
+    
+    .carousel-item img
+    {
+        height: 300px;
+        width: 200px;
+        object-fit: cover;
+    }
+  
+    
+   
+</style>
+
+
+
+<div class="container mt-3">
+<div class="row">
+
+    <!-- Filter -->
+    <div class="col-lg-4 mx-auto">
+        <div class="list-group">
+            <a href="/" class="list-group-item list-group-item-action jio1">All Products</a>
+
+         
+
+            {% for category in categories %}
+            
+            <a href="/?category={{category.id}}" class="list-group-item list-group-item-action newmain">{{category.name}}</a> 
+            
+            {% endfor %}
+        </div>
+    </div>
+            <div class="col-lg-2  call1" style="position: absolute; left: 41%;">
+            <p class="p-0 nice1" style="margin-top: 33%; "> {{mencloth}} </p> 
+            <!-- <p class="arround p-0 nice2" style="margin-top: 30%; ">{{womencloth}}</p> -->
+            <p class="arround p-0 nice3" style="margin-top: 13%; ">{{vegetables}}</p>
+            <p class="arround p-0 nice3" style="margin-top: 13%; ">{{mobiles}}</p>
+        </div>
+       
+        <div class="col-lg-6">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="https://source.unsplash.com/1600x900/?food" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://source.unsplash.com/1600x900/?mobile" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="https://source.unsplash.com/1600x900/?" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+        </div>
+            
+        
+    
+    <!-- All Products -->
+    <div id="products"  class="col-lg-12 mx-auto mt-5">
+        <div class="row mx-auto">
+            {% for prods in products %}
+            
+            <div class="card mx-auto mb-3" style="width: 22rem;" id="{{prods.id}}">
+                <img src="{{prods.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title text-dark"><a href="{% url 'store:product_details'  prods.id %}">{{prods.name | capfirst}}</a></h5>
+                  <p class="card-text">{{prods.price|currency}}</p>        
+                </div>
+
+                <div class="card-footer">
+            
+                   <a href="#" class="btn btn-primary btn-md my-0 p">
+                        Add to cart
+                        <i class="fa fa-shopping-cart ml-1"></i>
+                    </a> 
+                   
+                </div>
+
+               
+              </div>
+            
+            {% endfor %}
+            </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+    <!-- jQuery library -->
